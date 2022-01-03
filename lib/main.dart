@@ -27,7 +27,8 @@ class MyHomePage extends StatelessWidget {
         title: Text('Expense Planner'),
       ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
             width: double.infinity,
@@ -39,6 +40,7 @@ class MyHomePage extends StatelessWidget {
           ),
           Card(
             child: Text('List of TX'),
+            color: Colors.green,
           ),
         ],
       ),
