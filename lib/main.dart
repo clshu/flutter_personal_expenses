@@ -2,7 +2,7 @@ import 'package:expense_planner/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 
 import './models/transaction.dart';
-import './widgets/new_traction.dart';
+import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 
 void main() {
