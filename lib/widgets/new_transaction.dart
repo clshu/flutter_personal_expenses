@@ -25,6 +25,8 @@ class _NewTransactionState extends State<NewTransaction> {
     }
 
     widget.setData(submittedTitle, submittedAmount);
+
+    Navigator.of(context).pop();
   }
 
   @override
