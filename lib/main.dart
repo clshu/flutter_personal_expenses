@@ -24,10 +24,14 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Quicksand',
         textTheme: TextTheme(
+            bodyText1: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
             bodyText2: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-        )),
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            )),
         appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle(
             fontFamily: 'OpenSans',
