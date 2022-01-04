@@ -1,6 +1,9 @@
+import 'package:expense_planner/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 
-import './widgets/user_transaction.dart';
+import './models/transaction.dart';
+import './widgets/new_traction.dart';
+import './widgets/transaction_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +24,32 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransactions = [
+    Transaction(
+        id: '001', title: 'New Shoes', amount: 99.7, date: DateTime.now()),
+    Transaction(id: '002', title: 'Lunch', amount: 17.5, date: DateTime.now()),
+  ];
+
+  void _addNewTransaction(String title, double amount) {
+    final now = DateTime.now();
+    final newTx = Transaction(
+      id: now.toString(),
+      title: title,
+      amount: amount,
+      date: now,
+    );
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +75,8 @@ class MyHomePage extends StatelessWidget {
                 color: Colors.blue,
               ),
             ),
-            UserTransaction(),
+            NewTransaction(_addNewTransaction),
+            TransactionList(_userTransactions),
           ],
         ),
       ),
