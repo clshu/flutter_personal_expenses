@@ -39,6 +39,18 @@ class Chart extends StatelessWidget {
     );
   }
 
+  // getter can not promote the nullable to non nullable
+  // Use this wrapper to do the job.
+  double getTotalSpending() {
+    return groupTransactionValues.fold(0.0, (sum, item) {
+      return sum + (item['amount'] as double);
+    });
+  }
+
+  get totalSpending {
+    return getTotalSpending();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -46,7 +58,15 @@ class Chart extends StatelessWidget {
       margin: EdgeInsets.all(20),
       child: Row(
         children: groupTransactionValues
-            .map((e) => ChartBar(e['day'] as String, e['amount'] as double, 0))
+            .map(
+              (e) => ChartBar(
+                e['day'] as String,
+                e['amount'] as double,
+                totalSpending == 0.0
+                    ? 0.0
+                    : (e['amount'] as double) / totalSpending,
+              ),
+            )
             .toList(),
       ),
     );
