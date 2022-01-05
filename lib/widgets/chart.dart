@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction.dart';
+import '../helpers/double_extension.dart';
+import './chart_bar.dart';
 
 class Chart extends StatelessWidget {
   // const Chart({Key? key}) : super(key: key);
@@ -27,9 +29,12 @@ class Chart extends StatelessWidget {
             totalSum += recentTransactions[i].amount;
           }
         }
-        print(DateFormat.E().format(weekDay));
-        print(totalSum);
-        return {'day': DateFormat.E().format(weekDay), 'amount': totalSum};
+        // print(DateFormat.E().format(weekDay));
+        // print(totalSum);
+        return {
+          'day': DateFormat.E().format(weekDay).substring(0, 1),
+          'amount': totalSum.roundedPrecision(2),
+        };
       },
     );
   }
@@ -41,7 +46,7 @@ class Chart extends StatelessWidget {
       margin: EdgeInsets.all(20),
       child: Row(
         children: groupTransactionValues
-            .map((e) => Text('${e['day']}: ${e['amount']}'))
+            .map((e) => ChartBar(e['day'] as String, e['amount'] as double, 0))
             .toList(),
       ),
     );

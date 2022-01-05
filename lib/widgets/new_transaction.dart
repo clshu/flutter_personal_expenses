@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helpers/double_extension.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function setData;
@@ -18,12 +19,12 @@ class _NewTransactionState extends State<NewTransaction> {
     final submittedTitle = titelController.text;
     final submittedAmount = amountController.text.isEmpty
         ? -1
-        : double.parse(amountController.text);
+        : double.parse(amountController.text).roundedPrecision(2);
 
     if (submittedTitle.isEmpty || submittedAmount < 0) {
       return;
     }
-
+    // print('title: ${submittedTitle} amount: ${submittedAmount}');
     widget.setData(submittedTitle, submittedAmount);
 
     Navigator.of(context).pop();
