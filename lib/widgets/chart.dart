@@ -36,7 +36,7 @@ class Chart extends StatelessWidget {
           'amount': totalSum.roundedPrecision(2),
         };
       },
-    );
+    ).reversed.toList();
   }
 
   // getter can not promote the nullable to non nullable
