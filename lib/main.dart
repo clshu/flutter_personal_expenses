@@ -127,8 +127,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    final _isLandscape = mediaQuery.orientation == Orientation.landscape;
     print(_isLandscape);
     final _appBar = AppBar(
       title: Text('Personal Expenses'),
@@ -141,23 +141,23 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     Widget _renderChart(double heightFactor) {
-      // MediaQuery.of(context).padding.top is
+      // mediaQuery.padding.top is
       // the height of the status bar
       return Container(
-          height: (MediaQuery.of(context).size.height -
+          height: (mediaQuery.size.height -
                   _appBar.preferredSize.height -
-                  MediaQuery.of(context).padding.top) *
+                  mediaQuery.padding.top) *
               heightFactor,
           child: Chart(_recentTransactions));
     }
 
     Widget _renderTransactionList(double heightFactor) {
-      // MediaQuery.of(context).padding.top is
+      // mediaQuery.padding.top is
       // the height of the status bar
       return Container(
-          height: (MediaQuery.of(context).size.height -
+          height: (mediaQuery.size.height -
                   _appBar.preferredSize.height -
-                  MediaQuery.of(context).padding.top) *
+                  mediaQuery.padding.top) *
               heightFactor,
           child: TransactionList(_userTransactions, _deleteTransaction));
     }
