@@ -127,7 +127,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
+    final _isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    print(_isLandscape);
+    final _appBar = AppBar(
       title: Text('Personal Expenses'),
       actions: [
         IconButton(
@@ -137,46 +140,57 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    Widget _renderChart(double heightFactor) {
+      // MediaQuery.of(context).padding.top is
+      // the height of the status bar
+      return Container(
+          height: (MediaQuery.of(context).size.height -
+                  _appBar.preferredSize.height -
+                  MediaQuery.of(context).padding.top) *
+              heightFactor,
+          child: Chart(_recentTransactions));
+    }
+
+    Widget _renderTransactionList(double heightFactor) {
+      // MediaQuery.of(context).padding.top is
+      // the height of the status bar
+      return Container(
+          height: (MediaQuery.of(context).size.height -
+                  _appBar.preferredSize.height -
+                  MediaQuery.of(context).padding.top) *
+              heightFactor,
+          child: TransactionList(_userTransactions, _deleteTransaction));
+    }
+
     return Scaffold(
-      appBar: appBar,
+      appBar: _appBar,
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Show Chart',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                Switch(
-                    activeColor: Theme.of(context).colorScheme.primary,
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    })
-              ],
-            ),
-            // MediaQuery.of(context).padding.top is
-            // the height of the status bar
-            _showChart
-                ? Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.7,
-                    child: Chart(_recentTransactions))
-                : Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.7,
-                    child:
-                        TransactionList(_userTransactions, _deleteTransaction)),
+            if (_isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Show Chart',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  Switch(
+                      activeColor: Theme.of(context).colorScheme.primary,
+                      value: _showChart,
+                      onChanged: (val) {
+                        setState(() {
+                          _showChart = val;
+                        });
+                      })
+                ],
+              ),
+            if (!_isLandscape) _renderChart(0.3),
+            if (!_isLandscape) _renderTransactionList(0.7),
+            if (_isLandscape)
+              _showChart ? _renderChart(0.7) : _renderTransactionList(0.7),
           ],
         ),
       ),
