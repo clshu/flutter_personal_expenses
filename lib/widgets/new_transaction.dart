@@ -75,10 +75,12 @@ class _NewTransactionState extends State<NewTransaction> {
               height: 70,
               child: Row(
                 children: [
-                  Text(
-                    !_dateChosen
-                        ? 'No Date Chosen!'
-                        : DateFormat.yMd().format(_selectedDate),
+                  Expanded(
+                    child: Text(
+                      !_dateChosen
+                          ? 'No Date Chosen!'
+                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                    ),
                   ),
                   TextButton(
                     onPressed: _presentDatePicker,
